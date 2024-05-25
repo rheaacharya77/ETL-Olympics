@@ -19,11 +19,9 @@ def load_csv_from_blob(file_name, container_client):
    csv_data = blob_client.download_blob().readall()
    return pd.read_csv(io.BytesIO(csv_data), encoding='latin-1')
 
-
 def extract_transform():
    blob_service_client = BlobServiceClient.from_connection_string(AZURE_CONNECTION_STRING)
    container_client = blob_service_client.get_container_client("olympics")
-
 
    # Load datasets
    athletes = load_csv_from_blob("Athletes.csv", container_client)
@@ -38,30 +36,26 @@ def extract_transform():
   
    # Validate and transform data
    merged_data.dropna(inplace=True)
+   
    merged_data['Country'] = merged_data['Country'].str.upper()
-
-
-   # print(merged_data.head(20))
-   print(merged_data.columns)
-
+   merged_data['PersonName'] = merged_data['PersonName'].str.title()
+   merged_data['Name'] = merged_data['Name'].str.title()
 
    # Select relevant columns
    final_dataset = merged_data[['PersonName', 'Country', 'Discipline', 'Rank','Gold', 'Silver', 'Bronze', 'Total_x','Total_y','Name']].copy()
 
-
    # Rename columns for clarity
-   final_dataset.rename(columns={'PersonName':'Athlete','Total_x':'Total Medals','Total_y':'Total Athlete','Name':'Coach'}, inplace=True)
+   final_dataset.rename(columns={'PersonName':'Athlete','Total_x':'Total_Medal','Total_y':'Total_Athlete','Name':'Coach'}, inplace=True)
  
    # Remove duplicate rows
    final_dataset.drop_duplicates(inplace=True)
-
-
-   # Print the first 20 items of the final dataset
-   print(final_dataset.head(20))
-
-
+   
+   final_dataset['Id'] = range(1, len(final_dataset) + 1)
+   
+   # Define the desired column order
+   desired_order = ['Id', 'Athlete', 'Country', 'Discipline', 'Coach','Rank','Gold','Silver','Bronze','Total_Medal','Total_Athlete'] + [col for col in final_dataset.columns if col not in ['Id', 'Athlete', 'Country', 'Discipline', 'Coach','Rank','Gold','Silver','Bronze','Total_Medal','Total_Athlete']]
+    
+   # Reorder the DataFrame columns
+   final_dataset = final_dataset[desired_order]
+  
    return final_dataset
-
-
-# Call the function to execute
-extract_transform()

@@ -1,9 +1,9 @@
 from scripts.transform import extract_transform
-from scripts.load import load_to_sql
+from scripts.load import save_df_to_blob_storage
 
 def main():
     final_dataset = extract_transform()
-    # load_to_sql(final_dataset)
+    save_df_to_blob_storage(final_dataset)
 
 if __name__ == "__main__":
     main()

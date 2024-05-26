@@ -1,20 +1,19 @@
+ 
 import os
-from azure.storage.blob import BlobServiceClient
-from dotenv import load_dotenv
+import pandas as pd
 
-# Load environment variables from .env file
-load_dotenv()
+def extract():
+    data_dir = os.path.join(os.path.dirname(__file__), '..', 'data')
+    file_names = ["Athletes.csv", "Coaches.csv", "EntriesGender.csv", "Medals.csv"]
+    
+    dfs = {}
+    for file_name in file_names:
+        file_path = os.path.join(data_dir, file_name)
+        if os.path.exists(file_path):
+            # encoding parameter
+            df = pd.read_csv(file_path, encoding='latin1')  
+            dfs[file_name] = df
+        else:
+            print(f"File not found: {file_path}")
+    return dfs
 
-# Access the environment variables
-AZURE_CONNECTION_STRING = os.getenv("AZURE_CONNECTION_STRING")
-
-def upload_to_blob(file_name):
-    blob_service_client = BlobServiceClient.from_connection_string(AZURE_CONNECTION_STRING)
-    blob_client = blob_service_client.get_blob_client(container="olympics", blob=file_name)
-    with open(os.path.join("../data", file_name), "rb") as data:
-        blob_client.upload_blob(data)
-
-file_names = ["Athletes.csv", "Coaches.csv", "EntriesGender.csv", "Medals.csv"]
-
-for file_name in file_names:
-    upload_to_blob(file_name)

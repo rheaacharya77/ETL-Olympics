@@ -24,55 +24,53 @@ The pipeline architecture follows a typical  ETL (Extract, Transform, Load) proc
 - **Data Factory**: A cloud-based data integration service provided by Azure, enabling the orchestration and automation of data movement and transformation workflows across various data sources and destinations.
 
 ## Installation
-1. **Clone this repository to your local machine**
+
+    1. Clone this repository to your local machine
+
     ```
     git clone https://github.com/rheaacharya77/ETL-Olympics
     ```
 
-2. **Open your terminal and navigate to the project directory**
+    2. Open your terminal and navigate to the project directory
+
     ```
     cd ETL-Olympics
     ```
 
-3. **Setting Up Environment**
-    - Create a virtual environment using the following command:
-        ```
-        python -m venv venv
-        ```
+    3. Create a virtual environment using the following command:
+    ```
+    python -m venv venv
+    ```
 
-4. **Installing Requirements**
-    - Activate the virtual environment:
-        - On Windows:
+    4. Activate the virtual environment:
+        - On Windows
             ```
             venv\Scripts\activate
             ```
 
-        - On macOS and Linux:
+        - On macOS and Linux
             ```
             source venv/bin/activate
             ```
 
-    - Install the required packages using the provided requirements file :
+    5. Install the required packages using the provided requirements file
         ```
         pip install -r requirements.txt
         ```
 
 ## Azure Setup
-- **Azure Account**: Ensure you have an active Azure account.
-- **Azure Resources**: Create necessary Azure resources - Data Lake Gen2, Data Factory, Azure SQL Database.
+- Azure Account: Ensure you have an active Azure account.
+- Azure Resources: Create necessary Azure resources - Data Lake Gen2, Data Factory, Azure SQL Database.
 
 ## Usage
-1. **Create a .env file** 
-    - Create a file named .env in the project directory.
-    - Add your Azure connection string to the .env file with the following format:
+
+Create a file named .env in the project directory to add your Azure connection string to the .env file with the following format:
         ```
         AZURE_CONNECTION_STRING=your_connection_string_here
         ```
 
-2. **Start the ETL Process**
-    - Navigate to the project directory in your terminal.
- - Run the following command to start the ETL process:
-        ```bash
+Navigate to the project directory in your terminal and run the following command to start the ETL process:
+        ```
         python main.py
         ```
     This command will initiate the extraction of data from the CSV files, transform it as per the defined logic, and load the processed data into the Data Lake.
@@ -80,7 +78,7 @@ The pipeline architecture follows a typical  ETL (Extract, Transform, Load) proc
 ## Data Schema
 The transformed data is organized into a single `olympics_unified` table.
 
-**Olympics_unified:** stores detailed information about Olympic athletes, their achievements, and associated data. Below is a detailed definition of the table and its schema:
+- `Olympics_unified`: It stores detailed information about Olympic athletes, their achievements, and associated data. Below is a detailed definition of the table and its schema:
 
 |Field             | Dtype  | Description                                                     |
 |------------------|--------|-----------------------------------------------------------------|
@@ -97,22 +95,23 @@ The transformed data is organized into a single `olympics_unified` table.
 | Coach            | varchar| The name of the coach associated with the athlete.              |
 
 ## Work Flow
-**1. Data Loading**
+### 1. Data Loading
 
-Csv files are loaded from the data directory and then read into dataframe for further manipulation and analysis.
+Data are loaded from Csv files present at the data directory and then read into dataframe for further manipulation and analysis.
 ![Csv Files](images/files.png)
 
-**2. Data Cleaning And Transformation**
+### 2. Data Cleaning And Transformation**
 
 Extracted data is processed and modified during this stage. Rows with any missing values are removed, and the text format of the Country, PersonName, and Name columns is standardized. Specific columns relevant to the final dataset are selected, and columns are renamed for better clarity and understanding. Duplicate rows are eliminated, and a new column, Id, is added to assign a unique identifier to each row. Finally, the desired column order is defined to increase efficiency.
-![Csv Files](transform/files.png)
+![Csv Files](images/transform.png)
 
-**3. Data Load**
+### 3. Data Load**
  The transformed data is then loaded into a Data Lake. This serves as a centralized repository for storing vast amounts of data.
 
 ![datalake](images/datalake.png)
 
-Azure Data Factory is used to orchestrate the data flow from the Data Lake to the Azure SQL Database. It handles the scheduling, monitoring, and managing of data pipeline workflows.Data Factory pipelines are executed here.
+Azure Data Factory is used to orchestrate the data flow from the Data Lake to the Azure SQL Database handling the scheduling, monitoring, and managing of data pipeline workflows.Data Factory pipelines are executed for this purpose.
+
 ![datafactory1](images/datafactory1.png)
 
 ![datafactory2](images/datafactory2.png)
@@ -138,14 +137,10 @@ The ETL-Olympics project successfully implements an end-to-end data pipeline for
 ## Contributing
 Contributions are welcome! Here's how to contribute:
 
-**1. Fork the repo and clone your fork.**
+1. **Fork** the repo and **clone** your fork.
+2. **Create a branch** for your changes.
+3. **Make your changes** and **test** them.
+4. **Commit** your changes with clear messages.
+5. **Submit a pull request (PR)** with a detailed description of your changes.
 
-**2. Create a branch for your changes.**
-
-**3. Make your changes and test them.**
-
-**4. Commit your changes with clear messages.**
-
-**5. Submit a pull request (PR) with a detailed description of your changes.**
-
-Thank you for helping improve the ETL Olympics!
+Thank you for helping improve the Foodmandu Scraper!

@@ -105,6 +105,7 @@ Csv files are loaded from the data directory and then read into dataframe for fu
 **2. Data Cleaning And Transformation**
 
 Extracted data is processed and modified during this stage. Rows with any missing values are removed, and the text format of the Country, PersonName, and Name columns is standardized. Specific columns relevant to the final dataset are selected, and columns are renamed for better clarity and understanding. Duplicate rows are eliminated, and a new column, Id, is added to assign a unique identifier to each row. Finally, the desired column order is defined to increase efficiency.
+![Csv Files](transform/files.png)
 
 **3. Data Load**
  The transformed data is then loaded into a Data Lake. This serves as a centralized repository for storing vast amounts of data.

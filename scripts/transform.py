@@ -34,4 +34,5 @@ def transform(datasets):
     
    # Reorder the DataFrame columns
    final_dataset = final_dataset[desired_order]
+   print(final_dataset)
    return final_dataset

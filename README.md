@@ -25,43 +25,43 @@ The pipeline architecture follows a typical  ETL (Extract, Transform, Load) proc
 
 ## Installation
 
-    1. Clone this repository to your local machine
+1. Clone this repository to your local machine
 
-        ```bash
+    ```bash
         git clone https://github.com/rheaacharya77/ETL-Olympics
-        ```
+    ```
+2. Open your terminal and navigate to the project directory
 
-    2. Open your terminal and navigate to the project directory
-
-        ```bash
+    ```bash
         cd ETL-Olympics
-        ```
+    ```
 
-    3. Create a virtual environment using the following command
+3. Create a virtual environment using the following command
     
-        ```bash
+    ```bash
         python -m venv venv_etl
-        ```
+    ```
 
-    4. Activate the virtual environment
+4. Activate the virtual environment
 
-        - On Windows
+- On Windows
 
-            ```bash
-            venv\Scripts\activate
-            ```
+```bash
+    venv\Scripts\activate
+```
 
-        - On macOS and Linux
+- On macOS and Linux
 
-            ```bash
-            source venv/bin/activate
-            ```
+```bash
+    source venv/bin/activate
+```
 
-    5. Install the required packages using the provided requirements file
+5. Install the required packages using the provided requirements file
 
-        ```bash
+    ```bash
         pip install -r requirements.txt
-        ```
+    ```
+    
 
 ## Azure Setup
 - Azure Account: Ensure you have an active Azure account.
@@ -69,17 +69,17 @@ The pipeline architecture follows a typical  ETL (Extract, Transform, Load) proc
 
 ## Usage
 
-Create a file named .env in the project directory to add your Azure connection string to the .env file with the following format:
-        ```bash
+Create a file named .env in the project directory to add your Azure connection string with the following format:
+```bash
         AZURE_CONNECTION_STRING=your_connection_string_here
-        ```
+```
 
 Navigate to the project directory in your terminal and run the following command to start the ETL process:
 
-        ```bash
+```bash
         python main.py
-        ```
-    This command will initiate the extraction of data from the CSV files, transform it as per the defined logic, and load the processed data into the Data Lake.
+```
+This command will initiate the extraction of data from the CSV files, transform it as per the defined logic, and load the processed data into the Data Lake.
 
 ## Data Schema
 The transformed data is organized into a single `olympics_unified` table.
@@ -106,12 +106,13 @@ The transformed data is organized into a single `olympics_unified` table.
 Data are loaded from Csv files present at the data directory and then read into dataframe for further manipulation and analysis.
 ![Csv Files](images/files.png)
 
-### 2. Data Cleaning And Transformation**
+### 2. Data Cleaning And Transformation
 
 Extracted data is processed and modified during this stage. Rows with any missing values are removed, and the text format of the Country, PersonName, and Name columns is standardized. Specific columns relevant to the final dataset are selected, and columns are renamed for better clarity and understanding. Duplicate rows are eliminated, and a new column, Id, is added to assign a unique identifier to each row. Finally, the desired column order is defined to increase efficiency.
 ![Csv Files](images/transform.png)
 
-### 3. Data Load**
+### 3. Data Load
+
  The transformed data is then loaded into a Data Lake. This serves as a centralized repository for storing vast amounts of data.
 
 ![datalake](images/datalake.png)
@@ -123,6 +124,7 @@ Azure Data Factory is used to orchestrate the data flow from the Data Lake to th
 ![datafactory2](images/datafactory2.png)
 
 The final destination for the transformed data is an Azure SQL Database, where it can be efficiently queried and analyzed.
+
 ![Tables in sql](images/olympics.png)
 
 ## Future Enhancements

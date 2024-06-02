@@ -101,14 +101,16 @@ The transformed data is organized into a single `olympics_unified` table.
 | Coach            | varchar| The name of the coach associated with the athlete.              |
 
 ## Work Flow
-### 1. Data Loading
+### 1. Extract
 
 Data are loaded from Csv files present at the data directory and then read into dataframe for further manipulation and analysis.
+
 ![Csv Files](images/files.png)
 
 ### 2. Data Cleaning And Transformation
 
 Extracted data is processed and modified during this stage. Rows with any missing values are removed, and the text format of the Country, PersonName, and Name columns is standardized. Specific columns relevant to the final dataset are selected, and columns are renamed for better clarity and understanding. Duplicate rows are eliminated, and a new column, Id, is added to assign a unique identifier to each row. Finally, the desired column order is defined to increase efficiency.
+
 ![Csv Files](images/transform.png)
 
 ### 3. Data Load
@@ -117,13 +119,13 @@ Extracted data is processed and modified during this stage. Rows with any missin
 
 ![datalake](images/datalake.png)
 
-Azure Data Factory is used to orchestrate the data flow from the Data Lake to the Azure SQL Database handling the scheduling, monitoring, and managing of data pipeline workflows.Data Factory pipelines are executed for this purpose.
+In Azure Data Factory linked service is created for both Azure Data Lake Storage and Azure SQL Database. A pipeline is created with a Copy Data Activity to copy data from Azure Data Lake to Azure SQL Database. The source dataset is set to the Azure Data Lake Storage dataset and the destination dataset is set to the Azure SQL Database dataset,with mappings configured as necessary. Then, a trigger is set to schedule the pipeline to run as needed, ensuring the data transfer was regular.
 
 ![datafactory1](images/datafactory1.png)
 
 ![datafactory2](images/datafactory2.png)
 
-The final destination for the transformed data is an Azure SQL Database, where it can be efficiently queried and analyzed.
+The final destination for the transformed data is an Azure SQL Database, where it can be efficiently queried and analyzed.The use of Azure SQL Database ensured high availability and scalability for the transformed data, making it an ideal choice for handling and analyzing large volumes of Olympic data.
 
 ![Tables in sql](images/olympics.png)
 
@@ -140,7 +142,9 @@ The final destination for the transformed data is an Azure SQL Database, where i
 **5. Data Visualization:** Data visualization tools such as Power BI and Synapse Analytics can be integrated to create user-friendly dashboards and visual reports for better data analysis and interpretation.
 
 ## Conclusion
-The ETL-Olympics project successfully implements an end-to-end data pipeline for processing Olympic data sourced from CSV files. Utilizing Python, the program efficiently extracts, cleanses, and transforms the data, storing it in a Data Lake for efficient data management. Azure Data Factory then orchestrates the transfer of data from the Data Lake to Azure SQL Database, enabling streamlined querying and analysis of the processed data. This project showcases the power of cloud-based data engineering solutions in handling complex data pipelines and extracting valuable insights from large datasets. This project highlights the value of data-driven decision-making in the realm of sports analytics.
+The ETL-Olympics project successfully implements an end-to-end data pipeline for processing Olympic data sourced from CSV files. The data used in this ETL project was sourced from Kaggle, where it is publicly available for use. By utilizing this data, we have adhered to ethical guidelines regarding data usage and accessibility. 
+
+Utilizing Python, the program efficiently extracts, cleanses, and transforms the data, storing it in a Data Lake for efficient data management. Azure Data Factory then orchestrates the transfer of data from the Data Lake to Azure SQL Database, enabling streamlined querying and analysis of the processed data. This project showcases the power of cloud-based data engineering solutions in handling complex data pipelines and extracting valuable insights from large datasets. This project highlights the value of data-driven decision-making in the realm of sports analytics.
 
 ## Contributing
 Contributions are welcome! Here's how to contribute:

@@ -15,4 +15,3 @@ def save_df_to_blob_storage(df):
     blob_client = container_client.get_blob_client('transformed_data.csv')
     blob_client.upload_blob(df.to_csv(index=False), overwrite=True)
 
-

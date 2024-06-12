@@ -155,5 +155,5 @@ Contributions are welcome! Here's how to contribute:
 4. **Commit** your changes with clear messages.
 5. **Submit a pull request (PR)** with a detailed description of your changes.
 
-Thank you for helping improve the Foodmandu Scraper!
+Thank you for helping improve the ETL-Olympics!
 
